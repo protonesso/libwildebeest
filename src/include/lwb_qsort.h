@@ -34,20 +34,10 @@ extern "C" {
 
 #include <stddef.h>
 
-/**
- * Compatibility typedefs for glibc source compat
- */
-#ifndef __COMPAR_FN_T
-#define __COMPAR_FN_T
-typedef int (*__compar_fn_t)(const void *, const void *);
-typedef __compar_fn_t comparison_fn_t;
-typedef int (*__compar_d_fn_t)(const void *, const void *, void *);
-#endif
+typedef int		 cmp_t(void *, const void *, const void *);
 
-/**
- * GNU compatible qsort_r implementation, avoiding use of globals
- */
-void qsort_r(void *base, size_t nmemb, size_t size, __compar_d_fn_t compar, void *arg);
+void
+__wrap_qsort_r(void *a, size_t n, size_t es, void *thunk, cmp_t *cmp);
 
 #ifdef __cplusplus
 }
